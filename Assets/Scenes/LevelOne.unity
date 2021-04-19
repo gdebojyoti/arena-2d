@@ -171,6 +171,8 @@ MonoBehaviour:
   maximumPickups: 5
   pickupPrefab: {fileID: 4519376364134764375, guid: f1cc499971fd8f2409e189ebded45e1a, type: 3}
   ui: {fileID: 1023656379}
+  startButton: {fileID: 1517467317}
+  exitButton: {fileID: 792831112}
   score: 0
 --- !u!1 &259996513
 GameObject:
