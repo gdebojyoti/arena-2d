@@ -98,6 +98,8 @@ public class ArenaController : MonoBehaviour
 
     // public methods
 
+    #region public methods
+
     public void OnPickupCollect () {
         score++; // increase score
         currentPickupCount--; // decrease current in-game pickup count
@@ -106,4 +108,6 @@ public class ArenaController : MonoBehaviour
     public void OnGameEnd () {
         StartCoroutine(EndGame());
     }
+
+    #endregion
 }
