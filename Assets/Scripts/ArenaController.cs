@@ -21,6 +21,7 @@ public class ArenaController : MonoBehaviour
 
     public int score = 0;
 
+    GameData gameData;
     bool hasStarted = false; // whether game has started
     bool isGamePaused = false; // whether game is paused
     SpriteRenderer sr;
@@ -30,6 +31,7 @@ public class ArenaController : MonoBehaviour
         GameObject baseGo = transform.Find("Base").gameObject;
         sr = baseGo.GetComponent<SpriteRenderer>();
 
+        LoadGame();
         InitializeUi();
         TogglePause();
         StartCoroutine(SpawnPickups());
@@ -72,6 +74,12 @@ public class ArenaController : MonoBehaviour
         }
     }
 
+    void LoadGame () {
+        // print(Application.persistentDataPath); // C:/Users/Debojyoti/AppData/LocalLow/DefaultCompany/Arena-2d
+        GameInfo saveGame = SaveSystem.LoadGame();
+        gameData = new GameData(saveGame);
+    }
+
     void InitializeUi () {
         startButton.GetComponent<Button>().onClick.AddListener(StartGame);
         exitButton.GetComponent<Button>().onClick.AddListener(QuitGame);
@@ -100,6 +108,9 @@ public class ArenaController : MonoBehaviour
     IEnumerator EndGame () {
         // wait for 1 seconds
         yield return new WaitForSeconds(1f);
+
+        // update save game file
+        SaveSystem.SaveGame(gameData, this);
 
         // exit to title screen
         SceneManager.LoadScene("LevelOne");

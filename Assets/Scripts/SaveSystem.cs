@@ -7,25 +7,25 @@ public static class SaveSystem {
   static string path = Application.persistentDataPath + "/player.dx";
 
 
-  public static void SavePlayer (int score) {
+  public static void SaveGame (GameData gameData, ArenaController arenaController) {
     BinaryFormatter formatter = new BinaryFormatter();
     FileStream stream = new FileStream(path, FileMode.Create);
 
-    PlayerData data = new PlayerData(score);
+    GameInfo gameInfo = new GameInfo(gameData, arenaController);
 
-    formatter.Serialize(stream, data);
+    formatter.Serialize(stream, gameInfo);
     stream.Close();
   }
 
-  public static PlayerData LoadPlayer () {
+  public static GameInfo LoadGame () {
     if (File.Exists(path)) {
       BinaryFormatter formatter = new BinaryFormatter();
       FileStream stream = new FileStream(path, FileMode.Open);
 
-      PlayerData data = formatter.Deserialize(stream) as PlayerData;
+      GameInfo gameInfo = formatter.Deserialize(stream) as GameInfo;
 
       stream.Close();
-      return data;
+      return gameInfo;
     } else {
       Debug.Log("Save file not found");
       return null;
