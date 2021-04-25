@@ -18,6 +18,7 @@ public class ArenaController : MonoBehaviour
     [SerializeField] Button startButton;
     [SerializeField] Button exitButton;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
 
     public int score = 0;
 
@@ -84,7 +85,11 @@ public class ArenaController : MonoBehaviour
         startButton.GetComponent<Button>().onClick.AddListener(StartGame);
         exitButton.GetComponent<Button>().onClick.AddListener(QuitGame);
 
+        // initialize score UI
         scoreText.text = "Score: " + score.ToString();
+        
+        // initialize high score UI
+        highScoreText.text = "High Score: " + gameData.highScore.ToString();
     }
     void StartGame () {
         TogglePause();
