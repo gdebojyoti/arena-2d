@@ -1,22 +1,28 @@
+// TODO: Arena Controller is doing too much work. Refactor. Create a new GO "Level controller".
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ArenaController : MonoBehaviour
 {
     [SerializeField] float spawnInterval = 2f; // interval after which a new pickup is spawned if current count < maximum count
     [SerializeField] int maximumPickups = 5; // maximum number of pickups that can exist in the scene at any time
     [SerializeField] GameObject pickupPrefab;
-    [SerializeField] GameObject ui;
+    [SerializeField] GameObject menuUi;
+    [SerializeField] GameObject gameUi;
 
     [SerializeField] Button startButton;
     [SerializeField] Button exitButton;
+    [SerializeField] TextMeshProUGUI scoreText;
 
     public int score = 0;
 
-    bool isGamePaused = false;
+    bool hasStarted = false; // whether game has started
+    bool isGamePaused = false; // whether game is paused
     SpriteRenderer sr;
     int currentPickupCount = 0; // number of pickups that are currently in the scene
 
@@ -60,22 +66,35 @@ public class ArenaController : MonoBehaviour
 
     void CheckForInputs () {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            TogglePause();
+            if (this.hasStarted) {
+                TogglePause();
+            }
         }
     }
 
     void InitializeUi () {
         startButton.GetComponent<Button>().onClick.AddListener(StartGame);
         exitButton.GetComponent<Button>().onClick.AddListener(QuitGame);
+
+        scoreText.text = "Score: " + score.ToString();
     }
     void StartGame () {
         TogglePause();
+        
+        // update flag
+        this.hasStarted = true;
+        
+        // change start button's text to "Continue"
+        GameObject startGo = startButton.gameObject;
+        GameObject startText = startGo.transform.Find("text").gameObject;
+        startText.GetComponent<TextMeshProUGUI>().text = "Continue";
     }
 
     void TogglePause () {
         isGamePaused = !isGamePaused;
         Time.timeScale = isGamePaused ? 0f : 1f;
-        ui.SetActive(isGamePaused ? true : false);
+        menuUi.SetActive(isGamePaused ? true : false);
+        gameUi.SetActive(isGamePaused ? false : true);
     }
 
     IEnumerator EndGame () {
@@ -103,6 +122,7 @@ public class ArenaController : MonoBehaviour
     public void OnPickupCollect () {
         score++; // increase score
         currentPickupCount--; // decrease current in-game pickup count
+        scoreText.text = "Score: " + score.ToString(); // update score UI
     }
 
     public void OnGameEnd () {

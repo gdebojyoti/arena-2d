@@ -85,8 +85,11 @@ public class PlayerController : MonoBehaviour
             fireCr = StartCoroutine(Attack());
         }
         if (Input.GetKeyUp(KeyCode.Space)) {
-            StopCoroutine(fireCr);
-            fireCr = null;
+            // NOTE: null check required when the space bar is spammed (rapidly pressed) for devices with lower frame rates
+            if (fireCr != null) {
+                StopCoroutine(fireCr);
+                fireCr = null;
+            }
         }
     }
 
