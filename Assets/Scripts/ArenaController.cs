@@ -9,6 +9,7 @@ using TMPro;
 
 public class ArenaController : MonoBehaviour
 {
+    #region EDITOR VARIABLES
     [SerializeField] float spawnInterval = 2f; // interval after which a new pickup is spawned if current count < maximum count
     [SerializeField] int maximumPickups = 5; // maximum number of pickups that can exist in the scene at any time
     [SerializeField] GameObject pickupPrefab;
@@ -19,14 +20,19 @@ public class ArenaController : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
+    #endregion
 
+    #region PUBLIC VARIABLES
     public int score = 0;
+    #endregion
 
+    #region PRIVATE VARIABLES
     GameData gameData;
     bool hasStarted = false; // whether game has started
     bool isGamePaused = false; // whether game is paused
     SpriteRenderer sr;
     int currentPickupCount = 0; // number of pickups that are currently in the scene
+    #endregion
 
     void Start() {
         GameObject baseGo = transform.Find("Base").gameObject;
@@ -41,6 +47,8 @@ public class ArenaController : MonoBehaviour
     void Update () {
         CheckForInputs();
     }
+
+    #region PRIVATE METHODS
 
     IEnumerator SpawnPickups () {
         while (true) {
@@ -131,9 +139,9 @@ public class ArenaController : MonoBehaviour
         // TODO: don't quit game; send user to title screen instead
     }
 
-    // public methods
+    #endregion
 
-    #region public methods
+    #region PUBLIC METHODS
 
     public void OnPickupCollect () {
         score++; // increase score
