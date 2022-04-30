@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 velocityBeforePhysicsUpdate;
+    private bool isPlayers = false; // true if fired by player
 
     // Start is called before the first frame update
     void Start() {
@@ -45,4 +46,16 @@ public class Bullet : MonoBehaviour
         Vector2 newVelocity = Vector2.Reflect(inDirection, normal);
         rb.velocity = newVelocity;
     }
+
+    #region PUBLIC METHODS
+
+      public void SetIsPlayers () {
+        isPlayers = true;
+      }
+
+      public bool IsPlayers () {
+        return isPlayers;
+      }
+
+    #endregion
 }

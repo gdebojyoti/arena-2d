@@ -12,7 +12,11 @@ public class ArenaController : MonoBehaviour
     #region EDITOR VARIABLES
     [SerializeField] float spawnInterval = 2f; // interval after which a new pickup is spawned if current count < maximum count
     [SerializeField] int maximumPickups = 5; // maximum number of pickups that can exist in the scene at any time
+    [SerializeField] int scoreThresholdMine = 10; // minimum score after which mines start to spawn
+    [SerializeField] float mineSpawnInterval = 2f; // interval after which a new mine spawns if current mine count < maximum count
+    [SerializeField] int maxMineCount = 4; // maximum number of mines that can exist in the scene at any time
     [SerializeField] GameObject pickupPrefab;
+    [SerializeField] GameObject enemyPrefab;
     [SerializeField] GameObject menuUi;
     [SerializeField] GameObject gameUi;
 
@@ -32,6 +36,7 @@ public class ArenaController : MonoBehaviour
     bool isGamePaused = false; // whether game is paused
     SpriteRenderer sr;
     int currentPickupCount = 0; // number of pickups that are currently in the scene
+    int currentMineCount = 0; // number of mines that are currently in the scene
     #endregion
 
     void Start() {
@@ -42,6 +47,7 @@ public class ArenaController : MonoBehaviour
         InitializeUi();
         TogglePause();
         StartCoroutine(SpawnPickups());
+        StartCoroutine(SpawnMines());
     }
 
     void Update () {
@@ -73,6 +79,35 @@ public class ArenaController : MonoBehaviour
 
         // increment current count
         currentPickupCount++;
+    }
+
+    IEnumerator SpawnMines () {
+      while (true) {
+        yield return new WaitForSeconds(mineSpawnInterval);
+        SpawnMineIfEligible();
+      }
+    }
+
+    // spawn new pickup if current count is under limit
+    void SpawnMineIfEligible () {
+      // exit if minimum score hasn't been reached
+      if (score < scoreThresholdMine) {
+        return;
+      }
+
+      // exit if current count > max count
+      if (currentMineCount >= maxMineCount) {
+        return;
+      }
+
+      Vector2 location = new Vector2(Random.Range(-sr.bounds.size.x / 2, sr.bounds.size.x / 2), Random.Range(-sr.bounds.size.y / 2, sr.bounds.size.y / 2));
+        // Debug.Log("random location: " + location.ToString());
+
+      // instantiate mine at location
+      Instantiate(enemyPrefab, location, Quaternion.identity);
+
+      // increment current count
+      currentMineCount++;
     }
 
     void CheckForInputs () {
@@ -143,15 +178,21 @@ public class ArenaController : MonoBehaviour
 
     #region PUBLIC METHODS
 
-    public void OnPickupCollect () {
+      public void OnPickupCollect () {
         score++; // increase score
         currentPickupCount--; // decrease current in-game pickup count
         scoreText.text = "Score: " + score.ToString(); // update score UI
-    }
+      }
 
-    public void OnGameEnd () {
+      public void OnEnemyDestroy () {
+        score++; // increase score
+        currentMineCount--; // decrease current in-game enemy count
+        scoreText.text = "Score: " + score.ToString(); // update score UI
+      }
+
+      public void OnGameEnd () {
         StartCoroutine(EndGame());
-    }
+      }
 
     #endregion
 }

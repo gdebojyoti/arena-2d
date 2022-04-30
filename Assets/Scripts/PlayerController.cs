@@ -45,24 +45,27 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        GameObject otherGo = collision.gameObject; // gameobject with which player collided
-        
-        // TODO: find a better solution for this
-        // for handling bullets that are just fired (ignore collisions with them)
-        if (lastBulletGo == otherGo) {
-            lastBulletGo = null;
-            return;
-        }
+      GameObject otherGo = collision.gameObject; // gameobject with which player collided
+      
+      // TODO: find a better solution for this
+      // for handling bullets that are just fired (ignore collisions with them)
+      if (lastBulletGo == otherGo) {
+        lastBulletGo = null;
+        return;
+      }
 
-        switch (otherGo.tag) {
-            case "Bullet": {
-                Destroy(otherGo); // destroy the bullet
-                if (!isGodMode) {
-                    Die(); // kill player if not in god mode
-                }
-                break;
-            }
-        }
+      switch (otherGo.tag) {
+          case "Bullet": {
+            Destroy(otherGo); // destroy the bullet
+            Die();
+            break;
+          }
+          // on collision with enemy (mine)
+          case "Enemy": {
+            Die();
+            break;
+          }
+      }
     }
 
     void Move(float inputX, float inputY) {
@@ -100,6 +103,7 @@ public class PlayerController : MonoBehaviour
             
             // apply initial velocity to bullet
             lastBulletGo.GetComponent<Rigidbody2D>().AddForce(transform.up * bulletSpeed, ForceMode2D.Impulse);
+            lastBulletGo.GetComponent<Bullet>().SetIsPlayers();
 
             // wait for (1 / fireRate) seconds
             yield return new WaitForSeconds(1f / fireRate);
@@ -107,9 +111,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void Die () {
-        // destroy player
-        Destroy(gameObject);
+      // ignore if in god mode
+      if (isGodMode) {
+        return;
+      }
 
-        arenaController.OnGameEnd();
+      // destroy player
+      Destroy(gameObject);
+
+      arenaController.OnGameEnd();
     }
 }
