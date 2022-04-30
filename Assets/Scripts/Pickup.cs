@@ -10,10 +10,6 @@ public class Pickup : MonoBehaviour
         arenaController = GameObject.Find("Arena").GetComponent<ArenaController>();
     }
 
-    void Spawn() {
-        Debug.Log("spawned");
-    }
-
     private void OnTriggerEnter2D(Collider2D other) {
         // get tag
         string tag = other.gameObject.tag;
