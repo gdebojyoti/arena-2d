@@ -82,7 +82,7 @@ MonoBehaviour:
   fireInterval: 3
   bulletPrefab: {fileID: 4519376364134764375, guid: e618456d25da68f40b34390fc001cf03, type: 3}
   bulletSpawnPoint: {fileID: 7318541985213127684}
-  bulletSpeed: 2
+  bulletSpeed: 5
 --- !u!50 &7318541985719123534
 Rigidbody2D:
   serializedVersion: 4

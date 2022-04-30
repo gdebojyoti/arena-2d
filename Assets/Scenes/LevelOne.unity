@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnInterval: 2
   maximumPickups: 5
-  scoreThresholdMine: 2
-  mineSpawnInterval: 2
+  scoreThresholdMine: 8
+  mineSpawnInterval: 3
   maxMineCount: 4
   pickupPrefab: {fileID: 4519376364134764375, guid: f1cc499971fd8f2409e189ebded45e1a, type: 3}
   enemyPrefab: {fileID: 7318541985719123531, guid: 7557464d5d182cb439a6e0b200c1cdb3, type: 3}
