@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
   public int fireInterval = 2;
+  public int warningDuration = 2;
   [SerializeField] GameObject bulletPrefab;
   [SerializeField] GameObject bulletSpawnPoint; // location from which bullet is spawned
   [SerializeField] float bulletSpeed = 6f;
+  public new CapsuleCollider2D collider;
+  public GameObject glow;
+  public GameObject body;
 
   private ArenaController arenaController;
   private GameObject playerGo;
@@ -18,8 +22,15 @@ public class EnemyController : MonoBehaviour {
     // Start is called before the first frame update
     private void Start() {
       arenaController = GameObject.Find("Arena").GetComponent<ArenaController>();
-      playerGo = GameObject.Find("Player").gameObject; // TODO: fix error ("Object reference not set to an instance of an object") - triggered when enemy spawns after player dies
-      StartCoroutine(Fire());
+      var player = GameObject.Find("Player");
+
+      // exit if player is already dead - handle cases when enemy spawns after player dies
+      if (!player) {
+        return;
+      }
+
+      playerGo = player.gameObject;
+      StartCoroutine(ShowIncoming());
     }
 
     // Update is called once per frame
@@ -58,6 +69,27 @@ public class EnemyController : MonoBehaviour {
   #endregion
 
   #region PRIVATE METHODS
+
+    IEnumerator ShowIncoming () {
+      // wait for `warningDuration`, while red glow is being animated
+      yield return new WaitForSeconds(warningDuration);
+      
+      // hide red glow
+      if (glow) {
+        Destroy(glow);
+      }
+      
+      // enable collider
+      collider.enabled = true;
+      
+      // show enemy
+      if (body) {
+        body.GetComponent<SpriteRenderer>().enabled = true;
+      }
+
+      // start firing
+      StartCoroutine(Fire());
+    }
 
     IEnumerator Fire () {
       while (true) {
