@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject bodyGo;
     private Rigidbody2D rb;
     private Vector2 velocityBeforePhysicsUpdate;
     private bool isPlayers = false; // true if fired by player
 
     // Start is called before the first frame update
     void Start() {
-        // Debug.Log("Bullet Fired");
-        rb = GetComponent<Rigidbody2D>();
+      rb = GetComponent<Rigidbody2D>();
+
+      var sprite = bodyGo.GetComponent<SpriteRenderer>() as SpriteRenderer;
+      // if player's, color = #419FDD blue; else #E74C3C red
+      sprite.color = isPlayers ? new Color(.25f,.62f,.87f) : new Color(.9f,.3f,.2f);
     }
 
     // Update is called once per frame

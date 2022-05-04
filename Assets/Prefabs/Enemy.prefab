@@ -85,7 +85,7 @@ MonoBehaviour:
   warningDuration: 2
   bulletPrefab: {fileID: 4519376364134764375, guid: e618456d25da68f40b34390fc001cf03, type: 3}
   bulletSpawnPoint: {fileID: 7318541985213127684}
-  bulletSpeed: 5
+  bulletSpeed: 9
   collider: {fileID: 7318541985719123535}
   glow: {fileID: 8760001593165052446}
   body: {fileID: 7318541985835121816}
@@ -117,14 +117,14 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7318541985719123531}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.25, y: 0.65}
+  m_Size: {x: 0.52, y: 0.62}
   m_Direction: 0
 --- !u!95 &1961506530
 Animator:
@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 7318541985835121816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7318541985719123530}
@@ -219,7 +219,7 @@ SpriteRenderer:
   m_SortingLayerID: -1708625515
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e28af5bcbc09e1e428bb8085b4c55cc5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 357f0503d7d03d0439a030709ed2ee2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.6039216}
+  m_Color: {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

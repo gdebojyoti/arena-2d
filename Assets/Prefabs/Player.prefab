@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   bulletPrefab: {fileID: 4519376364134764375, guid: e618456d25da68f40b34390fc001cf03, type: 3}
-  bulletSpeed: 15
+  bulletSpeed: 12
   fireRate: 6
   bulletSpawnPoint: {fileID: 4617765034779563398}
   isGodMode: 0
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_SortingLayerID: -238343711
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7676f4f97b289d34294ed3e398522cae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c638bb73f8d4cee498347b6fc367e5ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
