@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour {
       }
       switch (collidingGo.tag) {
         case "Bullet": {
-          // detroy bullet
+          // destroy bullet
           Destroy(collidingGo);
           var bullet = collidingGo.GetComponent<Bullet>() as Bullet;
           Debug.Log("pick?" + bullet.IsPlayers());
