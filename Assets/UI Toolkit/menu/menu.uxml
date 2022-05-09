@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/menu.uss?fileID=7433441132597879392&amp;guid=8367861e094065c49baddc36226ca6be&amp;type=3#menu" />
-    <ui:VisualElement name="background" class="background">
+    <Style src="project://database/Assets/UI%20Toolkit/menu/menu.uss?fileID=7433441132597879392&amp;guid=8367861e094065c49baddc36226ca6be&amp;type=3#menu" />
+    <ui:VisualElement name="body" class="body">
         <ui:Label text="UTDS" display-tooltip-when-elided="true" name="title" style="font-size: 75px;" />
         <ui:Label text="Ultimate  Top  Down  Shooter" display-tooltip-when-elided="true" name="subtitle" style="font-size: 50px;" />
         <ui:Button text="START" display-tooltip-when-elided="true" name="start-button" class="button" style="margin-top: 75px;" />

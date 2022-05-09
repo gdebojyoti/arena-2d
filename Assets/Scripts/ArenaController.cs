@@ -3,7 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+// using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -17,23 +17,22 @@ public class ArenaController : MonoBehaviour
     [SerializeField] int maxMineCount = 4; // maximum number of mines that can exist in the scene at any time
     [SerializeField] GameObject pickupPrefab;
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] GameObject menuUi;
+    // [SerializeField] GameObject menuUi;
     [SerializeField] GameObject gameUi;
 
-    [SerializeField] Button startButton;
-    [SerializeField] Button exitButton;
+    // [SerializeField] Button startButton;
+    // [SerializeField] Button exitButton;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
     #endregion
 
     #region PUBLIC VARIABLES
+    public SO_GameState state;
     public int score = 0;
     #endregion
 
     #region PRIVATE VARIABLES
     GameData gameData;
-    bool hasStarted = false; // whether game has started
-    bool isGamePaused = false; // whether game is paused
     SpriteRenderer sr;
     int currentPickupCount = 0; // number of pickups that are currently in the scene
     int currentMineCount = 0; // number of mines that are currently in the scene
@@ -44,14 +43,13 @@ public class ArenaController : MonoBehaviour
         sr = baseGo.GetComponent<SpriteRenderer>();
 
         LoadGame();
-        InitializeUi();
-        TogglePause();
+        state.Initialize();
         StartCoroutine(SpawnPickups());
         StartCoroutine(SpawnMines());
     }
 
     void Update () {
-        CheckForInputs();
+        _CheckForPausedState();
     }
 
     #region PRIVATE METHODS
@@ -110,14 +108,6 @@ public class ArenaController : MonoBehaviour
       currentMineCount++;
     }
 
-    void CheckForInputs () {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (this.hasStarted) {
-                TogglePause();
-            }
-        }
-    }
-
     void LoadGame () {
         // print(Application.persistentDataPath); // C:/Users/Debojyoti/AppData/LocalLow/DefaultCompany/Arena-2d
         GameInfo saveGame = SaveSystem.LoadGame();
@@ -125,32 +115,11 @@ public class ArenaController : MonoBehaviour
     }
 
     void InitializeUi () {
-        startButton.GetComponent<Button>().onClick.AddListener(StartGame);
-        exitButton.GetComponent<Button>().onClick.AddListener(QuitGame);
-
         // initialize score UI
         scoreText.text = "Score: " + score.ToString();
         
         // initialize high score UI
         highScoreText.text = "High Score: " + gameData.highScore.ToString();
-    }
-    void StartGame () {
-        TogglePause();
-        
-        // update flag
-        this.hasStarted = true;
-        
-        // change start button's text to "Continue"
-        GameObject startGo = startButton.gameObject;
-        GameObject startText = startGo.transform.Find("text").gameObject;
-        startText.GetComponent<TextMeshProUGUI>().text = "Continue";
-    }
-
-    void TogglePause () {
-        isGamePaused = !isGamePaused;
-        Time.timeScale = isGamePaused ? 0f : 1f;
-        menuUi.SetActive(isGamePaused ? true : false);
-        gameUi.SetActive(isGamePaused ? false : true);
     }
 
     IEnumerator EndGame () {
@@ -172,6 +141,11 @@ public class ArenaController : MonoBehaviour
         #endif
 
         // TODO: don't quit game; send user to title screen instead
+    }
+
+    private void _CheckForPausedState () {
+      Time.timeScale = state.IsGamePaused ? 0f : 1f;
+      gameUi.SetActive(state.IsGamePaused ? false : true);
     }
 
     #endregion
