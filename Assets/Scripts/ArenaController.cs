@@ -45,7 +45,7 @@ public class ArenaController : MonoBehaviour
     }
 
     void Update () {
-        _CheckForPausedState();
+      _CheckForPausedState();
     }
 
     #region PRIVATE METHODS
@@ -127,16 +127,6 @@ public class ArenaController : MonoBehaviour
 
         // exit to title screen
         SceneManager.LoadScene("LevelOne");
-    }
-
-    void QuitGame () {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-
-        // TODO: don't quit game; send user to title screen instead
     }
 
     private void _CheckForPausedState () {
