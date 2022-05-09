@@ -6,18 +6,18 @@ using UnityEngine;
 public class SO_GameState : ScriptableObject {
   // public new string name;
 
-  [SerializeField] private bool hasStarted = false; // whether game has started
-  public bool HasStarted { get { return hasStarted; } }
+  [SerializeField] private bool hasGameStarted = false; // whether game has started
+  public bool HasGameStarted { get { return hasGameStarted; } }
   [SerializeField] private bool isGamePaused = true; // whether game is paused
   public bool IsGamePaused { get { return isGamePaused; } }
 
   public void Initialize () {
-    hasStarted = false;
+    hasGameStarted = false;
     isGamePaused = true;
   }
 
   public void StartGame () {
-    hasStarted = true;
+    hasGameStarted = true;
   }
 
   public void TogglePauseGame () {

@@ -42,7 +42,7 @@ public class UiService : MonoBehaviour {
         _UpdateMainMenu();
 
         // exit if game has already started
-        if (state.HasStarted) {
+        if (state.HasGameStarted) {
           return;
         }
         

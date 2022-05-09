@@ -3,7 +3,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -17,11 +16,8 @@ public class ArenaController : MonoBehaviour
     [SerializeField] int maxMineCount = 4; // maximum number of mines that can exist in the scene at any time
     [SerializeField] GameObject pickupPrefab;
     [SerializeField] GameObject enemyPrefab;
-    // [SerializeField] GameObject menuUi;
     [SerializeField] GameObject gameUi;
 
-    // [SerializeField] Button startButton;
-    // [SerializeField] Button exitButton;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
     #endregion

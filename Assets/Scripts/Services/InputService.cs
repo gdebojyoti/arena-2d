@@ -19,7 +19,7 @@ public class InputService : MonoBehaviour {
 
     private void _CheckForInputs () {
       if (Input.GetKeyDown(KeyCode.Escape)) {
-          if (state.HasStarted) {
+          if (state.HasGameStarted) {
               state.TogglePauseGame();
           }
       }
